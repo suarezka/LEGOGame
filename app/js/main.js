@@ -100,13 +100,16 @@ require({
             new THREE.PlaneGeometry(2500, 2500, 10, 10),
             new THREE.MeshPhongMaterial({ map: gravelTex})
         );
-       // scene.add(ground);
+        scene.add(ground);
         document.body.appendChild( renderer.domElement );
     }
 
     function animate() {
 
         requestAnimationFrame( animate );
+
+      //  brick2.rotation.z += 0.05;
+      //  brick3.rotation.z += 0.05;
 
         frameCF.decompose (tmpTranslation, tmpRotation, tmpScale);
         bikeFrame.position.copy (tmpTranslation);
