@@ -14,6 +14,10 @@ require({
     var wheelOne, wheelCF, tmpTranslation, tmpRotation, tmpScale;
     var bikeFrame, frameCF;
     var brick, brickCF;
+    var bricks, color, size;
+    const BRICK_SIZE = [2, 4, 8];
+    const BRICK_COLOR = [0x780320, 0x001199, 0xFFFF03, 0x00CC00];
+    const NUM_BRICKS = 20;
 
     const rotZ1 = new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(1));
 
@@ -69,7 +73,6 @@ require({
         brick3CF = new THREE.Matrix4();
         brick3CF.multiply(trans2);
 
-
         tmpRotation = new THREE.Quaternion();
         tmpTranslation = new THREE.Vector3();
         tmpScale = new THREE.Vector3();
@@ -81,7 +84,36 @@ require({
         brick2 = new LegoBrick(4, 0xFFFF03);
         brick3 = new LegoBrick(2, 0x780320);
 
-        bikeFrame.add (wheelOne);
+    //    size = getRandomIntInclusive(0, 2);
+   //     color = getRandomIntInclusive(0, 3);
+
+
+        console.log(size);
+        console.log(color);
+
+        for (k = 0; k < NUM_BRICKS / 2; k++) {
+            const b = new LegoBrick(4, 0xFFFF03);
+
+            b.position.x = Math.random() * 500 + 1;
+            b.position.y = Math.random() * 500 + 1;
+            b.position.z = 0;
+
+          //  bricks.add(b);
+            scene.add(b);
+        }
+
+        for (k = 0; k < NUM_BRICKS / 2; k++) {
+            const b = new LegoBrick(2, 0x00CC00);
+
+            b.position.x = - (Math.random() * 500 + 1);
+            b.position.y = - (Math.random() * 500 + 1);
+            b.position.z = 0;
+
+            //  bricks.add(b);
+            scene.add(b);
+        }
+
+       // bikeFrame.add (wheelOne);
         //scene.add(wheelOne);
        // scene.add(bikeFrame);
         scene.add(brick);
@@ -107,9 +139,6 @@ require({
     function animate() {
 
         requestAnimationFrame( animate );
-
-      //  brick2.rotation.z += 0.05;
-      //  brick3.rotation.z += 0.05;
 
         frameCF.decompose (tmpTranslation, tmpRotation, tmpScale);
         bikeFrame.position.copy (tmpTranslation);
