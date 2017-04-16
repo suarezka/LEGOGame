@@ -15,6 +15,7 @@ require({
     var bikeFrame, frameCF;
     var brick, brickCF;
     var bricks, color, size;
+    var bricksCollected = 0, score;
     const BRICK_SIZE = [2, 4, 8];
     const BRICK_COLOR = [0x780320, 0x001199, 0xFFFF03, 0x00CC00];
     const NUM_BRICKS = 8;
@@ -28,6 +29,8 @@ require({
     function init() {
 
         scene = new THREE.Scene();
+
+        score = document.getElementById('totalBricks');
 
         window.addEventListener('resize', onResize, false);
         window.addEventListener('keydown', onKeypress, false);
@@ -80,13 +83,6 @@ require({
         bikeFrame = new BikeFrame();
 
         /* COLORS RED: 0x780320 BLUE: 0x001199 YELLOW: 0xFFFF03 GREEN: 0x00CC00 */
-        brick = new LegoBrick(8, 0x00CC00);
-        brick2 = new LegoBrick(4, 0xFFFF03);
-        brick3 = new LegoBrick(2, 0x780320);
-
-        console.log(size);
-        console.log(color);
-
         //Positive x, y
         for (k = 0; k < NUM_BRICKS; k++) {
             size = Math.floor(Math.random() * 3);
@@ -144,15 +140,13 @@ require({
        // bikeFrame.add (wheelOne);
         //scene.add(wheelOne);
        // scene.add(bikeFrame);
-        scene.add(brick);
-        scene.add(brick2);
-        scene.add(brick3);
+
 
         var container = document.getElementById("container");
         renderer = new THREE.WebGLRenderer();
         renderer.setSize( window.innerWidth, window.innerHeight );
 
-        const gravelTex = new THREE.TextureLoader().load("textures/legoBasePlate.png");
+        const gravelTex = new THREE.TextureLoader().load("textures/gravel.png");
         gravelTex.repeat.set(6,6);
         gravelTex.wrapS = THREE.RepeatWrapping;
         gravelTex.wrapT = THREE.RepeatWrapping;
@@ -168,6 +162,8 @@ require({
 
         requestAnimationFrame( animate );
 
+        score.innerText = (NUM_BRICKS * 4) - bricksCollected;
+ /*
         frameCF.decompose (tmpTranslation, tmpRotation, tmpScale);
         bikeFrame.position.copy (tmpTranslation);
         bikeFrame.quaternion.copy (tmpRotation);
@@ -177,17 +173,7 @@ require({
         wheelOne.position.copy (tmpTranslation);
         wheelOne.quaternion.copy (tmpRotation);
         wheelOne.scale.copy (tmpScale);
-
-        brickCF.decompose (tmpTranslation, tmpRotation, tmpScale);
-        brick.position.copy (tmpTranslation);
-        brick.quaternion.copy (tmpRotation);
-        brick.scale.copy (tmpScale);
-
-        brick3CF.decompose (tmpTranslation, tmpRotation, tmpScale);
-        brick3.position.copy (tmpTranslation);
-        brick3.quaternion.copy (tmpRotation);
-        brick3.scale.copy (tmpScale);
-
+**/
         renderer.render( scene, camera );
     }
 
