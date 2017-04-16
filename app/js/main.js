@@ -152,7 +152,7 @@ require({
         renderer = new THREE.WebGLRenderer();
         renderer.setSize( window.innerWidth, window.innerHeight );
 
-        const gravelTex = new THREE.TextureLoader().load("textures/gravel.png");
+        const gravelTex = new THREE.TextureLoader().load("textures/legoBasePlate.png");
         gravelTex.repeat.set(6,6);
         gravelTex.wrapS = THREE.RepeatWrapping;
         gravelTex.wrapT = THREE.RepeatWrapping;
