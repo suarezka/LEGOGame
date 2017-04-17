@@ -97,7 +97,6 @@ require({
             b.position.z = 0;
 
           //  bricks.add(bCF);
-            brick.add(b);
             scene.add(b);
         }
 
@@ -231,6 +230,7 @@ require({
             }
             case 13: { //enter (capture brick)
                 //Calculate distance between lego person and brick
+                //TODO: Need to change the value to remove to be "selected brick"
                 scene.remove(brick);
                 bricksCollected += 1;
                 break;
