@@ -14,7 +14,7 @@ require({
     var wheelOne, wheelCF, tmpTranslation, tmpRotation, tmpScale;
     var bikeFrame, frameCF;
     var brick, brickCF;
-    var bricks, color, size;
+    var bricksCF, color, size;
     var bricksCollected = 0, score;
     const BRICK_SIZE = [2, 4, 8];
     const BRICK_COLOR = [0x780320, 0x001199, 0xFFFF03, 0x00CC00];
@@ -71,16 +71,17 @@ require({
         frameCF.multiply(trans);
 
         brickCF = new THREE.Matrix4();
-        brickCF.multiply(trans);
-        brick2CF = new THREE.Matrix4();
-        brick3CF = new THREE.Matrix4();
-        brick3CF.multiply(trans2);
+    //    brickCF.multiply(trans);
+    //    brick2CF = new THREE.Matrix4();
+    //    brick3CF = new THREE.Matrix4();
+    //    brick3CF.multiply(trans2);
 
         tmpRotation = new THREE.Quaternion();
         tmpTranslation = new THREE.Vector3();
         tmpScale = new THREE.Vector3();
         wheelOne = new Wheel();
         bikeFrame = new BikeFrame();
+        brick = new LegoBrick(8, 0x780320);
 
         /* COLORS RED: 0x780320 BLUE: 0x001199 YELLOW: 0xFFFF03 GREEN: 0x00CC00 */
         //Positive x, y
@@ -88,11 +89,15 @@ require({
             size = Math.floor(Math.random() * 3);
             color = Math.floor(Math.random() * 4);
             const b = new LegoBrick(BRICK_SIZE[size], BRICK_COLOR[color]);
+          //  const bCF = brickCF.clone();
+
 
             b.position.x = Math.random() * 1000 + 1;
             b.position.y = Math.random() * 1000 + 1;
             b.position.z = 0;
 
+          //  bricks.add(bCF);
+            brick.add(b);
             scene.add(b);
         }
 
@@ -106,6 +111,7 @@ require({
             b.position.y = Math.random() * 1000 + 1;
             b.position.z = 0;
 
+            brick.add(b);
             scene.add(b);
         }
 
@@ -119,6 +125,7 @@ require({
             b.position.y = - (Math.random() * 1000 + 1);
             b.position.z = 0;
 
+            brick.add(b);
             scene.add(b);
         }
 
@@ -132,10 +139,12 @@ require({
             b.position.y = - (Math.random() * 1000 + 1);
             b.position.z = 0;
 
+            brick.add(b);
             scene.add(b);
         }
 
 
+        scene.add(brick);
 
        // bikeFrame.add (wheelOne);
         //scene.add(wheelOne);
@@ -163,6 +172,8 @@ require({
         requestAnimationFrame( animate );
 
         score.innerText = (NUM_BRICKS * 4) - bricksCollected;
+
+ //       brick.rotation.z += 0.03;
  /*
         frameCF.decompose (tmpTranslation, tmpRotation, tmpScale);
         bikeFrame.position.copy (tmpTranslation);
@@ -218,6 +229,12 @@ require({
                 scene.updateMatrixWorld(true);
                 break;
             }
+            case 13: { //enter (capture brick)
+                //Calculate distance between lego person and brick
+                scene.remove(brick);
+                bricksCollected += 1;
+                break;
+            }
             case 73: { /* i */
                 frameCF.multiply(moveZpos);
                 /* travel distance: 50, wheel radius 158 */
@@ -238,5 +255,11 @@ require({
                 break;
         }
     }
-
+/*
+    function removeEntity(object) {
+        var selectedObject = scene.getObjectByName(object.name);
+        scene.remove( selectedObject );
+        animate();
+    }
+*/
 });
