@@ -13,6 +13,7 @@ define(function (require) {
             const CYL_RAD = 12;
             const CYL_DIA = 24;
 
+            //Setting values based on size parameter
             switch (size) {
                 case 8: {
                     NUM_GROOVES = 8;
@@ -31,6 +32,7 @@ define(function (require) {
                 }
             }
 
+            //Create brick object Box + Cylinder
             const brickGroup = new THREE.Group();
             const brickGeo = new THREE.BoxGeometry(BRICK_WIDTH, BRICK_LENGTH, BRICK_WIDTH);
             const brickMat = new THREE.MeshPhongMaterial({color: color});
@@ -40,6 +42,7 @@ define(function (require) {
             const grooveMat = new THREE.MeshPhongMaterial({color: color});
             const groove = new THREE.Mesh(grooveGeo, grooveMat);
 
+            //Create top grooves based on size parameter
             for (let k = 0; k < NUM_GROOVES; k++) {
                 const g = groove.clone();
                 g.translateZ(50);
@@ -59,6 +62,7 @@ define(function (require) {
                 brickGroup.add(g);
             }
 
+            //Move brick up to be on "ground"
             brick.translateZ(25);
 
             brickGroup.add(brick);

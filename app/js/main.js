@@ -30,6 +30,7 @@ require({
 
         scene = new THREE.Scene();
 
+        //Grab the div that holds the score
         score = document.getElementById('totalBricks');
 
         window.addEventListener('resize', onResize, false);
@@ -70,25 +71,26 @@ require({
         frameCF.multiply(rotX);
         frameCF.multiply(trans);
 
+        //Create a coordinate frame for one brick
         brickCF = new THREE.Matrix4();
-    //    brickCF.multiply(trans);
-    //    brick2CF = new THREE.Matrix4();
-    //    brick3CF = new THREE.Matrix4();
-    //    brick3CF.multiply(trans2);
 
         tmpRotation = new THREE.Quaternion();
         tmpTranslation = new THREE.Vector3();
         tmpScale = new THREE.Vector3();
         wheelOne = new Wheel();
         bikeFrame = new BikeFrame();
+
+        //Create hard coded brick to be removed (testing purposes mainly)
         brick = new LegoBrick(8, 0x780320);
 
-        /* COLORS RED: 0x780320 BLUE: 0x001199 YELLOW: 0xFFFF03 GREEN: 0x00CC00 */
-        //Positive x, y
+        /* BRICK COLORS RED: 0x780320 BLUE: 0x001199 YELLOW: 0xFFFF03 GREEN: 0x00CC00 */
+        //Place bricks Positive x, y
         for (k = 0; k < NUM_BRICKS; k++) {
             size = Math.floor(Math.random() * 3);
             color = Math.floor(Math.random() * 4);
             const b = new LegoBrick(BRICK_SIZE[size], BRICK_COLOR[color]);
+
+            //TODO: Figure out a way to create CFs for bricks
           //  const bCF = brickCF.clone();
 
 
@@ -100,11 +102,13 @@ require({
             scene.add(b);
         }
 
-        //Negative x, Positive y
+        //Place bricks Negative x, Positive y
         for (k = 0; k < NUM_BRICKS; k++) {
             size = Math.floor(Math.random() * 3);
             color = Math.floor(Math.random() * 4);
             const b = new LegoBrick(BRICK_SIZE[size], BRICK_COLOR[color]);
+
+            //TODO: Figure out a way to create CFs for bricks
 
             b.position.x = - (Math.random() * 1000 + 1);
             b.position.y = Math.random() * 1000 + 1;
@@ -114,11 +118,13 @@ require({
             scene.add(b);
         }
 
-        //Negative x, y
+        //Place bricks Negative x, y
         for (k = 0; k < NUM_BRICKS; k++) {
             size = Math.floor(Math.random() * 3);
             color = Math.floor(Math.random() * 4);
             const b = new LegoBrick(BRICK_SIZE[size], BRICK_COLOR[color]);
+
+            //TODO: Figure out a way to create CFs for bricks
 
             b.position.x = - (Math.random() * 1000 + 1);
             b.position.y = - (Math.random() * 1000 + 1);
@@ -128,11 +134,13 @@ require({
             scene.add(b);
         }
 
-        //Positive x, Negative y
+        //Place bricks Positive x, Negative y
         for (k = 0; k < NUM_BRICKS; k++) {
             size = Math.floor(Math.random() * 3);
             color = Math.floor(Math.random() * 4);
             const b = new LegoBrick(BRICK_SIZE[size], BRICK_COLOR[color]);
+
+            //TODO: Figure out a way to create CFs for bricks
 
             b.position.x = Math.random() * 1000 + 1;
             b.position.y = - (Math.random() * 1000 + 1);
@@ -170,6 +178,7 @@ require({
 
         requestAnimationFrame( animate );
 
+        //Updates the score in HTML
         score.innerText = (NUM_BRICKS * 4) - bricksCollected;
 
  //       brick.rotation.z += 0.03;
@@ -229,7 +238,8 @@ require({
                 break;
             }
             case 13: { //enter (capture brick)
-                //Calculate distance between lego person and brick
+
+                //TODO: Calculate distance between lego person and brick
                 //TODO: Need to change the value to remove to be "selected brick"
                 scene.remove(brick);
                 bricksCollected += 1;
@@ -255,11 +265,4 @@ require({
                 break;
         }
     }
-/*
-    function removeEntity(object) {
-        var selectedObject = scene.getObjectByName(object.name);
-        scene.remove( selectedObject );
-        animate();
-    }
-*/
 });
